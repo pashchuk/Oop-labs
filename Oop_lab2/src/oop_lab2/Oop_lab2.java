@@ -19,7 +19,7 @@ public class Oop_lab2 {
      */
     public static void main(String[] args)
     {
-        String line = "відсортувати слова заданого тексту за зростанням кількості голосних літер";
+        String line = "відсортувати слова заданого тексту, за зростанням кількості, голосних літер!";
         Text text = new Text(line);
         System.out.print(text.toString());
         text.Sort();
@@ -86,13 +86,12 @@ class Word implements IWord, Comparable
         Word word = (Word)o;
         return this.toString().compareTo(word.toString());
     }
-    
-
 }
 
 
 class Sentence
 {
+    private boolean IsSorted = false;
     private int Count;
     private int PunctuationCount;
     private Word[] sentence;
@@ -104,9 +103,14 @@ class Sentence
         this.punct = new Punctuation[sentence.split(" ").length];
         this. punctIndex = new int[sentence.split(" ").length];
         StringBuilder str = new StringBuilder();
-        int k = 0, p = 0;//count of words and puctuation
-        for(int i = 0; i < sentence.length(); i++)
+        int k = 0, p = 0, spacecount = 0;//count of words and puctuation
+        for(int i = 0; i < sentence.length() - 1; i++)
         {
+            if (sentence.charAt(i) == ' ')
+            {
+                spacecount++;
+                continue;
+            }
             str.append(sentence.charAt(i));
             //if next symbol is punctuation
             if((Punctuation.mustvalue + " ").contains(Character.toString(sentence.charAt(i+1))))
@@ -118,7 +122,7 @@ class Sentence
                     continue;
                 //add symbol to punctuation array
                 this.punct[p] = new Punctuation(sentence.charAt(i));
-                this.punctIndex[p++] = i;
+                this.punctIndex[p++] = i - spacecount--;
             }
         }
         this.PunctuationCount = p;
@@ -128,14 +132,27 @@ class Sentence
     @Override
     public String toString() 
     {
-        StringBuilder str = new StringBuilder();
-        for (int i = 0; i < Count; i++)
-            str.append(sentence[i].toString() + " ");
-        return str.toString();
+        if(!IsSorted)
+        {
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < Count; i++)
+                str.append(sentence[i].toString() + " ");
+            for (int i = 0; i < PunctuationCount; i++)
+                str.insert(punctIndex[i], punct[i].toString());
+            return str.toString();
+        }
+        else
+        {
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < Count; i++)
+                str.append(sentence[i].toString() + " ");
+            return str.toString();
+        }
     }
     
     public void Sort()
     {
+        this.IsSorted = true;
         Comp comparator = new Comp();
         Arrays.sort(sentence, comparator);
     }
