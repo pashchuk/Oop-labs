@@ -4,6 +4,8 @@
  */
 package oop_lab2;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -20,6 +22,8 @@ public class Oop_lab2 {
         String line = "відсортувати слова заданого тексту за зростанням кількості голосних літер";
         Text text = new Text(line);
         System.out.print(text.toString());
+        text.Sort();
+        System.out.println("\nSorted text:\n" + text.toString());
     }
 }
 
@@ -90,24 +94,34 @@ class Word implements IWord, Comparable
 class Sentence
 {
     private int Count;
-    private IWord[] sentence;
+    private int PunctuationCount;
+    private Word[] sentence;
+    private Punctuation[] punct;
+    private int[] punctIndex;
     public Sentence(String sentence)
     {
-        this.sentence = new IWord[sentence.split(" ").length*2];
+        this.sentence = new Word[sentence.split(" ").length];
+        this.punct = new Punctuation[sentence.split(" ").length];
+        this. punctIndex = new int[sentence.split(" ").length];
         StringBuilder str = new StringBuilder();
-        int k = 0;
+        int k = 0, p = 0;//count of words and puctuation
         for(int i = 0; i < sentence.length(); i++)
         {
             str.append(sentence.charAt(i));
+            //if next symbol is punctuation
             if((Punctuation.mustvalue + " ").contains(Character.toString(sentence.charAt(i+1))))
-            {                  
+            {   
+                //add word ot word's array
                 this.sentence[k++] = new Word(str.toString());
                 str.delete(0, str.length());
-                if (sentence.charAt(i+1) == ' ')
+                if (sentence.charAt(++i) == ' ')
                     continue;
-                this.sentence[k++] = new Punctuation(sentence.charAt(++i));
+                //add symbol to punctuation array
+                this.punct[p] = new Punctuation(sentence.charAt(i));
+                this.punctIndex[p++] = i;
             }
         }
+        this.PunctuationCount = p;
         this.Count = k;
     }
 
@@ -116,13 +130,14 @@ class Sentence
     {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < Count; i++)
-            str.append(sentence[i].toString());
+            str.append(sentence[i].toString() + " ");
         return str.toString();
     }
     
     public void Sort()
     {
-        sentence.
+        Comp comparator = new Comp();
+        Arrays.sort(sentence, comparator);
     }
 }
 
