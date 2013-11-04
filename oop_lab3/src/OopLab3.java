@@ -19,12 +19,15 @@ public class OopLab3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Sword a = new Sword(10, 20, "excalibur");
-        Helm b = new Helm(20, 30, 15);
+        Sword a = new Sword(10, 30, "Excalibur");
+        Helm b = new Helm(20, 20, 15);
         Knight knight = new Knight();
         knight.TakeSword(a);
         knight.TakeHelm(b);
-        knight.TakeHelm(b);
+        knight.TakeHelm(20, 35, 20);
+        knight.PrintAmmunition();
+        knight.Sort();
+        knight.PrintAmmunition();
     }
     
 }
@@ -111,8 +114,14 @@ class Knight {
     public void TakeImmortal(int Cost, int Height, int Diametr) {
         amunition[AmunCount++] = new Immortal(Cost, Height, Diametr);
     }
+    public void TakeImmortal(Immortal immortal) {
+        amunition[AmunCount++] = new Immortal(immortal.GetCost(), immortal.GetHeight(), immortal.GetDiametr());
+    }
     public void TakeArmor(int Cost, int Height, int Safety) {
         amunition[AmunCount++] = new Armor(Cost, Height, Safety);
+    }
+    public void TakeArmor(Armor armor) {
+        amunition[AmunCount++] = new Armor(armor.GetCost(), armor.GetHeight(), armor.GetSafety());
     }
     public int GetAmmunitionCost() {
         int sum = 0;
@@ -120,23 +129,24 @@ class Knight {
             sum += a.GetCost();
         return sum;
     }
-    public void GetAmmunition() {
-        System.out.format("%10s%10s%10s%15s\n", "Type","Cost","Height", "Other Character");
+    public void PrintAmmunition() {
+        System.out.format("%10s%10s%10s%25s\n", "Type","Cost","Height", "Other Character");
         for (int i = 0; i < AmunCount; i++)
         {
             if(amunition[i] instanceof Sword )
-                System.out.format("%10s%10d%10d%15s\n", "Sword",amunition[i].GetCost(),
+                System.out.format("%10s%10d%10d%25s\n", "Sword",amunition[i].GetCost(),
                         amunition[i].GetHeight(), "Name: " + ((Sword)amunition[i]).GetName());
             if(amunition[i] instanceof Helm )
-                System.out.format("%10s%10d%10d%15d\n", "Helm",amunition[i].GetCost(),
+                System.out.format("%10s%10d%10d%25s\n", "Helm",amunition[i].GetCost(),
                         amunition[i].GetHeight(), "Safety = " + ((Helm)amunition[i]).GetSafety());
             if(amunition[i] instanceof Immortal )
-                System.out.format("%10s%10d%10d%15s\n", "Immortal",amunition[i].GetCost(),
+                System.out.format("%10s%10d%10d%25s\n", "Immortal",amunition[i].GetCost(),
                         amunition[i].GetHeight(), "Diametr = " + ((Immortal)amunition[i]).GetDiametr()) ;
             if(amunition[i] instanceof Armor )
-                System.out.format("%10s%10d%10d%15s\n", "Armor",amunition[i].GetCost(),
+                System.out.format("%10s%10d%10d%25s\n", "Armor",amunition[i].GetCost(),
                         amunition[i].GetHeight(), "Safety = " + ((Armor)amunition[i]).GetSafety());
         }
+        System.out.print("\n\n");
     }
     public void Sort() {
         Arrays.sort(amunition, 0, AmunCount, new CompareAmmunition());
