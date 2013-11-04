@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 /*
@@ -121,11 +122,24 @@ class Knight {
     }
     public void GetAmmunition() {
         System.out.format("%10s%10s%10s%15s\n", "Type","Cost","Height", "Other Character");
-        for (int i = 0; i < AmunCount; i++) {
-            Sword s;
-            s = (Sword)amunition[i];
-            System.out.format("%10s%10d%10d%15s\n", "Sword",s.GetCost(),s.GetHeight(), "Name: " + s.GetName());
+        for (int i = 0; i < AmunCount; i++)
+        {
+            if(amunition[i] instanceof Sword )
+                System.out.format("%10s%10d%10d%15s\n", "Sword",amunition[i].GetCost(),
+                        amunition[i].GetHeight(), "Name: " + ((Sword)amunition[i]).GetName());
+            if(amunition[i] instanceof Helm )
+                System.out.format("%10s%10d%10d%15d\n", "Helm",amunition[i].GetCost(),
+                        amunition[i].GetHeight(), "Safety = " + ((Helm)amunition[i]).GetSafety());
+            if(amunition[i] instanceof Immortal )
+                System.out.format("%10s%10d%10d%15s\n", "Immortal",amunition[i].GetCost(),
+                        amunition[i].GetHeight(), "Diametr = " + ((Immortal)amunition[i]).GetDiametr()) ;
+            if(amunition[i] instanceof Armor )
+                System.out.format("%10s%10d%10d%15s\n", "Armor",amunition[i].GetCost(),
+                        amunition[i].GetHeight(), "Safety = " + ((Armor)amunition[i]).GetSafety());
         }
+    }
+    public void Sort() {
+        Arrays.sort(amunition, 0, AmunCount, new CompareAmmunition());
     }
 }
 
