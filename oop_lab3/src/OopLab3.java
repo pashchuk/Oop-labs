@@ -28,6 +28,8 @@ public class OopLab3 {
         knight.PrintAmmunition();
         knight.Sort();
         knight.PrintAmmunition();
+        System.out.println(knight.GetAmmunitionCost());
+        knight.Find(15, 20);
     }
     
 }
@@ -125,8 +127,8 @@ class Knight {
     }
     public int GetAmmunitionCost() {
         int sum = 0;
-        for (Ammunition a : amunition)
-            sum += a.GetCost();
+        for (int i = 0; i < AmunCount; i++)
+            sum += amunition[i].GetCost();
         return sum;
     }
     public void PrintAmmunition() {
@@ -150,6 +152,38 @@ class Knight {
     }
     public void Sort() {
         Arrays.sort(amunition, 0, AmunCount, new CompareAmmunition());
+    }
+    public void Find(int startCost, int endCost) {
+        boolean IsFinded = false;
+        System.out.println("Find value:");
+        for (int i = 0; i < AmunCount; i++)
+            if(amunition[i].GetCost()>=startCost&&amunition[i].GetCost()<=endCost) {
+                IsFinded = true;
+                break;
+            }
+        if (IsFinded) {
+            System.out.format("%10s%10s%10s%25s\n", "Type","Cost","Height", "Other Character");
+            for (int i = 0; i < AmunCount; i++)
+                if(amunition[i].GetCost()>=startCost&&amunition[i].GetCost()<=endCost)
+                    System.out.print(PrintAmmo(amunition[i]));
+        }
+        else
+            System.out.println("Value is not finded");
+    }
+    private String PrintAmmo(Ammunition a) {
+        if(a instanceof Sword )
+            return String.format("%10s%10d%10d%25s\n", "Sword",a.GetCost(),
+                    a.GetHeight(), "Name: " + ((Sword)a).GetName());
+        if(a instanceof Helm )
+            return String.format("%10s%10d%10d%25s\n", "Helm",a.GetCost(),
+                    a.GetHeight(), "Safety = " + ((Helm)a).GetSafety());
+        if(a instanceof Immortal )
+            return String.format("%10s%10d%10d%25s\n", "Immortal",a.GetCost(),
+                    a.GetHeight(), "Diametr = " + ((Immortal)a).GetDiametr()) ;
+        if(a instanceof Armor )
+            return String.format("%10s%10d%10d%25s\n", "Armor",a.GetCost(),
+                    a.GetHeight(), "Safety = " + ((Armor)a).GetSafety());
+        return null;
     }
 }
 
