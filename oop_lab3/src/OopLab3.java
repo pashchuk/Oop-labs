@@ -23,7 +23,7 @@ public class OopLab3 {
         Knight knight = new Knight();
         knight.TakeSword(a);
         knight.TakeHelm(b);
-        knight.GetAmmunition();
+        knight.TakeHelm(b);
     }
     
 }
