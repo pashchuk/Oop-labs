@@ -1,111 +1,19 @@
-
-import java.util.Arrays;
-import java.util.Comparator;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+package oop_lab4;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  *
  * @author Eduard
  */
-public class OopLab3 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Sword a = new Sword(10, 30, "Excalibur");
-        Helm b = new Helm(20, 20, 15);
-        Knight knight = new Knight();
-        knight.TakeSword(a);
-        knight.TakeHelm(b);
-        knight.TakeHelm(20, 35, 20);
-        knight.PrintAmmunition();
-        knight.Sort();
-        knight.PrintAmmunition();
-        System.out.println(knight.GetAmmunitionCost());
-        knight.Find(15, 20);
-    }
-    
-}
-
-abstract class Ammunition {
-    private int Cost;
-    private int Height;
-    public Ammunition(int Cost, int Height) {
-        this.Cost = Cost;
-        this. Height = Height;
-    }
-    public int GetCost()
-    {
-        return this.Cost;
-    }
-    public int GetHeight()
-    {
-        return this.Height;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        Ammunition a = (Ammunition)obj;
-        if(a.GetCost()==this.Cost)
-            if(a.GetHeight()==this.Height)
-                return true;
-        return false;
-    }
-    
-}
-
-class Sword extends Ammunition {
-    private String name;
-    public Sword(int Cost, int Height, String name) {
-        super(Cost,Height);
-        this.name = name;
-    }
-    public String GetName() {
-        return this.name;
-    }
-}
-
-class Immortal extends Ammunition {
-    private int Diametr;
-    public Immortal(int Cost, int Height,int Diametr) {
-        super(Cost, Height);
-        this.Diametr = Diametr;
-    }
-    public int GetDiametr() {
-        return this.Diametr;
-    }
-}
-
-class Helm extends Ammunition {
-    private int safety;
-    public Helm(int Cost, int Height, int Safety) {
-        super(Cost, Height);
-        safety = Safety;
-    }
-    public int GetSafety() {
-        return this.safety;
-    }
-}
-
-class Armor extends Ammunition {
-    private int safety;
-        public Armor(int Cost, int Height, int Safety) {
-        super(Cost, Height);
-        safety = Safety;
-    }
-    public int GetSafety() {
-        return this.safety;
-    }
-}
-
-class Knight {
+public class Knight {
     private int AmunCount = 0;
     private Ammunition[] amunition;
     public Knight() {
@@ -200,5 +108,99 @@ class Knight {
 class CompareAmmunition implements Comparator<Ammunition> {
     public int compare(Ammunition a1, Ammunition a2) {
         return a1.GetHeight() - a2.GetHeight();
+    }
+}
+abstract class Ammunition {
+    private int Cost;
+    private int Height;
+    public Ammunition(int Cost, int Height) {
+        this.Cost = Cost;
+        this. Height = Height;
+    }
+    public int GetCost()
+    {
+        return this.Cost;
+    }
+    public int GetHeight()
+    {
+        return this.Height;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        Ammunition a = (Ammunition)obj;
+        if(a.GetCost()==this.Cost)
+            if(a.GetHeight()==this.Height)
+                return true;
+        return false;
+    }
+    
+}
+
+class Sword extends Ammunition {
+    private String name;
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Sword(int Cost, int Height, String name) {
+        super(Cost,Height);
+        this.name = name;
+    }
+    public String GetName() {
+        return this.name;
+    }
+   
+}
+
+class Immortal extends Ammunition {
+    private int Diametr;
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Immortal(int Cost, int Height,int Diametr) {
+        super(Cost, Height);
+        this.Diametr = Diametr;
+    }
+    public int GetDiametr() {
+        return this.Diametr;
+    }
+}
+
+class Helm extends Ammunition {
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    private int safety;
+    public Helm(int Cost, int Height, int Safety) {
+        super(Cost, Height);
+        safety = Safety;
+    }
+    public int GetSafety() {
+        return this.safety;
+    }
+}
+
+class Armor extends Ammunition {
+    private int safety;
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        public Armor(int Cost, int Height, int Safety) {
+        super(Cost, Height);
+        safety = Safety;
+    }
+    public int GetSafety() {
+        return this.safety;
     }
 }
