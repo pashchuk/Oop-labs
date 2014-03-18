@@ -20,3 +20,7 @@ public class Oop_lab1 {
     }
     
 }
+
+class CSVProcessor {
+    
+}
