@@ -22,5 +22,8 @@ public class Oop_lab1 {
 }
 
 class CSVProcessor {
+    public static void asd() {
+        
+    }
     
 }
