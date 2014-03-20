@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CSVProcessor {
     private ArrayList<ArrayList<String>> data;
 
+    public CSVProcessor() {}
     public CSVProcessor(String path)throws IOException{
         data = new ArrayList<ArrayList<String>>();
         BufferedReader f = new BufferedReader(new FileReader(path));
@@ -17,6 +18,7 @@ public class CSVProcessor {
         Parse(buffer);
         int a = 5;
     }
+
     private void Parse(ArrayList<String> buffer){
         for(String s : buffer){
             data.add(new ArrayList<String>());
@@ -59,17 +61,20 @@ public class CSVProcessor {
             }
         }
     }
-    public void Deserialise(String path) throws IOException {
+    public boolean Deserialise(String path) throws IOException {
         File file = new File(path);
         if (file.exists()&&file.isFile())
             try(FileInputStream f = new FileInputStream(file)){
                 try(ObjectInputStream str = new ObjectInputStream(f)){
                     data = (ArrayList<ArrayList<String>>) str.readObject();
+                    return true;
                 }
                 catch(ClassNotFoundException ex){
                     System.out.println(ex.getMessage());
+                    return false;
                 }
             }
+        return false;
     }
     public void Print(){
         for(ArrayList<String> i : data){
