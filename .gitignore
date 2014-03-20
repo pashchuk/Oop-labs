@@ -219,3 +219,5 @@ pip-log.txt
 /2nd half-year/oop_lab1/nbproject/private/
 2nd half-year/oop_lab1/*
 !2nd half-year/oop_lab1/src
+*.*
+!*.java
