@@ -3,9 +3,17 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class CSVProcessor {
+
     private ArrayList<ArrayList<String>> data;
 
     public CSVProcessor() {}
+
+    /**
+     * Create a object of csv data
+     *
+     * @param path Path to *.csv file
+     * @throws IOException
+     */
     public CSVProcessor(String path)throws IOException{
         data = new ArrayList<ArrayList<String>>();
         try(BufferedReader f = new BufferedReader(new FileReader(path))){
@@ -18,7 +26,8 @@ public class CSVProcessor {
             Parse(buffer);
         }
     }
-
+    //parse data from ArrayList<String> and split all lines to ',' delimiter
+    //and fill a main field "data"
     private void Parse(ArrayList<String> buffer){
         for(String s : buffer){
             data.add(new ArrayList<String>());
@@ -32,6 +41,12 @@ public class CSVProcessor {
             data.get(data.size()-1).add(s.substring(firstindex,s.length()));
         }
     }
+
+    /**
+     * Upload all data from current object to *.csv file. When file is exist, it will be replaced on new empty file.
+     * @param path Path to new file
+     * @throws IOException
+     */
     public void Upload(String path) throws IOException {
         File file = new File(path);
         if (file.exists())
@@ -50,6 +65,11 @@ public class CSVProcessor {
         str.close();
     }
 
+    /**
+     * Serialize all data in current object to file "serialized.dat".
+     * @param path Path to directory whe file will be created.
+     * @throws IOException
+     */
     public void Serialise(String path) throws IOException {
         File file = new File(path);
         if (file.exists())
@@ -62,6 +82,13 @@ public class CSVProcessor {
             }
         }
     }
+
+    /**
+     * Deserialized all data from "serialized.dat" file.
+     * @param path Path to file "serialized.dat"
+     * @return True if file has been deserialized.
+     * @throws IOException
+     */
     public boolean Deserialise(String path) throws IOException {
         File file = new File(path);
         if (file.exists()&&file.isFile())
@@ -77,6 +104,10 @@ public class CSVProcessor {
             }
         return false;
     }
+
+    /**
+     * Print all data in current object to console
+     */
     public void Print(){
         for(ArrayList<String> i : data){
             int asd = 0;

@@ -9,7 +9,6 @@ import java.io.*;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
-        //CSVProcessor a = new CSVProcessor("LicenseImportSample.csv");
         CSVProcessor a = new CSVProcessor();
         if(a.Deserialise("serialized.dat"))
             a.Print();
