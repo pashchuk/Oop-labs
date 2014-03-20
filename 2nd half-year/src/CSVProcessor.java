@@ -8,15 +8,15 @@ public class CSVProcessor {
     public CSVProcessor() {}
     public CSVProcessor(String path)throws IOException{
         data = new ArrayList<ArrayList<String>>();
-        BufferedReader f = new BufferedReader(new FileReader(path));
-        String line = f.readLine();
-        ArrayList<String> buffer = new ArrayList<String>();
-        while(line != null){
-            buffer.add(line);
-            line = f.readLine();
+        try(BufferedReader f = new BufferedReader(new FileReader(path))){
+            String line = f.readLine();
+            ArrayList<String> buffer = new ArrayList<String>();
+            while(line != null){
+                buffer.add(line);
+                line = f.readLine();
+            }
+            Parse(buffer);
         }
-        Parse(buffer);
-        int a = 5;
     }
 
     private void Parse(ArrayList<String> buffer){
@@ -40,8 +40,9 @@ public class CSVProcessor {
         file.createNewFile();
         FileOutputStream str = new FileOutputStream(file);
         for(ArrayList<String> i : data){
-            for(String s : i){
-                str.write(s.getBytes());
+            int asd = 0;
+            for(; asd < i.size()-1; asd++){
+                str.write(i.get(asd).getBytes());
                 str.write(',');
             }
             str.write('\n');
