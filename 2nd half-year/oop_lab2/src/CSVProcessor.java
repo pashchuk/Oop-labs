@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CSVProcessor {
 
     private ArrayList<ArrayList<String>> data;
+    private ArrayList<String> buffer;
 
     public CSVProcessor() {}
 
@@ -15,20 +16,21 @@ public class CSVProcessor {
      * @throws IOException
      */
     public CSVProcessor(String path)throws IOException{
+        if(!path.substring(path.length()-3,path.length()).equals("csv"))
+            throw new CSVParseException(CSVParseErrors.isNotCSVFile);
         data = new ArrayList<ArrayList<String>>();
         try(BufferedReader f = new BufferedReader(new FileReader(path))){
             String line = f.readLine();
-            ArrayList<String> buffer = new ArrayList<String>();
+           buffer = new ArrayList<String>();
             while(line != null){
                 buffer.add(line);
                 line = f.readLine();
             }
-            Parse(buffer);
         }
     }
     //parse data from ArrayList<String> and split all lines to ',' delimiter
     //and fill a main field "data"
-    private void Parse(ArrayList<String> buffer){
+    public void Parse(){
         for(String s : buffer){
             data.add(new ArrayList<String>());
             int firstindex = 0;
