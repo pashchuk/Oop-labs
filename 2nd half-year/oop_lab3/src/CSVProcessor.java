@@ -27,6 +27,7 @@ public class CSVProcessor {
                 line = f.readLine();
             }
         }
+        Parse();
     }
 
     /**

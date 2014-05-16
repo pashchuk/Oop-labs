@@ -29,16 +29,17 @@ public class Main {
                     try {
                         CSVProcessor csv = new CSVProcessor(fileChooser.getSelectedFile().getAbsolutePath());
                         String[][]src = csv.getData();
-                        DiagramDrawer dr=new DiagramDrawer(src);
-                        dr.show(frame, 0, 100, 500);
+                        DiagramDrawer dr=new DiagramDrawer();
+                        frame.add(dr);
+                        //dr.show(frame, 0, 100, 500);
                         JTable table=new JTable(src.length,src[0].length);
-                        dr.connectTable(table);
+                        //dr.connectTable(table);
                         table.setBounds(100,600,600,200);
                         frame.add(table);
+                        frame.validate();
                         frame.repaint();
                     } catch (Exception ex) {
                     }
-                    ;
                 }
             }
         });
