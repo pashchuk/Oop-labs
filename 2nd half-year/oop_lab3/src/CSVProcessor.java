@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CSVProcessor {
 
-    private ArrayList<ArrayList<String>> data;
+    private String[][] data;
     private ArrayList<String> buffer;
 
     public CSVProcessor() {}
@@ -18,7 +18,6 @@ public class CSVProcessor {
     public CSVProcessor(String path)throws IOException{
         if(!path.substring(path.length()-3,path.length()).equals("csv"))
             throw new CSVParseException(CSVParseErrors.isNotCSVFile);
-        data = new ArrayList<ArrayList<String>>();
         try(BufferedReader f = new BufferedReader(new FileReader(path))){
             String line = f.readLine();
            buffer = new ArrayList<String>();
@@ -31,16 +30,17 @@ public class CSVProcessor {
     //parse data from ArrayList<String> and split all lines to ',' delimiter
     //and fill a main field "data"
     public void Parse(){
-        for(String s : buffer){
-            data.add(new ArrayList<String>());
-            int firstindex = 0;
-            for(int i = 0; i < s.length(); i++){
-                if(s.charAt(i) == ','){
-                    data.get(data.size()-1).add(s.substring(firstindex,i));
-                    firstindex = i + 1;
+        int rowcount = buffer.get(0).split(",").length;
+        data = new String[buffer.size()][rowcount];
+        try{
+            for(int i = 0; i < buffer.size(); i++){
+                String[] values = buffer.get(i).split(",");
+                for(int j = 0; j < rowcount; j++){
+                    data[i][j] = values[j];
                 }
             }
-            data.get(data.size()-1).add(s.substring(firstindex,s.length()));
+        } catch (IndexOutOfBoundsException ex){
+            int a = 5;
         }
     }
 
