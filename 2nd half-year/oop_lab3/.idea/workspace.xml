@@ -94,7 +94,7 @@
       <file leaf-file-name="DiagramDrawer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DiagramDrawer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="34" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+            <state line="12" column="1" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,10 +102,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Sector.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Sector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="21" selection-start="66" selection-end="66" vertical-scroll-proportion="0.09490334" vertical-offset="0" max-vertical-offset="569">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="47" selection-start="429" selection-end="429" vertical-scroll-proportion="0.28471002" vertical-offset="0" max-vertical-offset="569">
+            <state line="19" column="0" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -123,8 +132,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/DiagramDrawer.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/DiagramDrawer.java" />
       </list>
     </option>
   </component>
@@ -577,21 +586,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DiagramDrawer.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="34" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+        <state line="19" column="0" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/DiagramDrawer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="47" selection-start="429" selection-end="429" vertical-scroll-proportion="0.28471002" vertical-offset="0" max-vertical-offset="569">
+        <state line="12" column="1" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="21" selection-start="66" selection-end="66" vertical-scroll-proportion="0.09490334" vertical-offset="0" max-vertical-offset="569">
+          <folding />
         </state>
       </provider>
     </entry>
