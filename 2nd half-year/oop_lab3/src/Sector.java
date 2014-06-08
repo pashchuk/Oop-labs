@@ -1,7 +1,7 @@
 import java.awt.*;
 
 /**
- * Created by mamaxropela on 6/8/14.
+ * Created by mamaxropela on 5/7/14.
  */
 public class Sector {
     private Color color;

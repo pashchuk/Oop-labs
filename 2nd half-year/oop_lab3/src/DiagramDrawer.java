@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by root on 6/7/14.
+ * Created by mamaxropela on 5/6/14.
  */
 public class DiagramDrawer extends JComponent {
     private Sector[] sectors;

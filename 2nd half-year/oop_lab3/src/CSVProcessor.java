@@ -1,6 +1,7 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CSVProcessor {
 
@@ -119,5 +120,8 @@ public class CSVProcessor {
                 System.out.print(data[i][j] + ',');
             System.out.println(data[i][data[i].length-1]);
         }
+    }
+    public String[][] getData(){
+        return data;
     }
 }
