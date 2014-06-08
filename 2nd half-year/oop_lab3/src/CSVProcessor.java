@@ -56,12 +56,12 @@ public class CSVProcessor {
                 file.delete();
         file.createNewFile();
         FileOutputStream str = new FileOutputStream(file);
-        for(ArrayList<String> i : data){
-            int asd = 0;
-            for(; asd < i.size()-1; asd++){
-                str.write(i.get(asd).getBytes());
+        for(int i = 0; i < data.length; i++){
+            for(int j = 0; j < data[0].length-1; j++){
+                str.write(data[i][j].getBytes());
                 str.write(',');
             }
+            str.write(data[i][data[i].length-1].getBytes());
             str.write('\n');
         }
         str.close();
@@ -96,7 +96,7 @@ public class CSVProcessor {
         if (file.exists()&&file.isFile())
             try(FileInputStream f = new FileInputStream(file)){
                 try(ObjectInputStream str = new ObjectInputStream(f)){
-                    data = (ArrayList<ArrayList<String>>) str.readObject();
+                    data = (String[][]) str.readObject();
                     return true;
                 }
                 catch(ClassNotFoundException ex){
@@ -111,11 +111,10 @@ public class CSVProcessor {
      * Print all data in current object to console
      */
     public void Print(){
-        for(ArrayList<String> i : data){
-            int asd = 0;
-            for(; asd < i.size()-1; asd++)
-                System.out.print(i.get(asd) + ',');
-            System.out.println(i.get(asd));
+        for(int i = 0; i < data.length; i++){
+            for(int j = 0; j < data[0].length-1; j++)
+                System.out.print(data[i][j] + ',');
+            System.out.println(data[i][data[i].length-1]);
         }
     }
 }
