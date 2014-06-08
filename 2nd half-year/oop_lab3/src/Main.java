@@ -9,20 +9,14 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        String path;
-        Scanner asd = new Scanner(System.in);
-        path = asd.nextLine();
-        final CSVProcessor a = new CSVProcessor(path);
-        Thread thr = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    a.Parse();
-                }
-        });
-        thr.start();
-        thr.join();
-        a.Print();
+        JFrame frame = new JFrame("MainFrame");
+        frame.setBounds(100,100,300,300);
+        frame.getContentPane().add(new DiagramDrawer());
+        frame.setVisible(true);
+
     }
 }
