@@ -3,6 +3,6 @@
  */
 public enum CSVParseErrors {
     isNotCSVFile,
-    invalidData,
+    mustHaveLessData,
     mustHaveMoreData
 }

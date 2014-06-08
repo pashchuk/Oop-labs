@@ -26,21 +26,24 @@ public class CSVProcessor {
                 line = f.readLine();
             }
         }
+        Parse();
     }
     //parse data from ArrayList<String> and split all lines to ',' delimiter
     //and fill a main field "data"
-    public void Parse(){
+    public void Parse() throws CSVParseException{
         int rowcount = buffer.get(0).split(",").length;
         data = new String[buffer.size()][rowcount];
         try{
             for(int i = 0; i < buffer.size(); i++){
                 String[] values = buffer.get(i).split(",");
-                for(int j = 0; j < rowcount; j++){
+                if(values.length < rowcount)
+                    throw new CSVParseException(CSVParseErrors.mustHaveMoreData);
+                for(int j = 0; j < values.length; j++){
                     data[i][j] = values[j];
                 }
             }
         } catch (IndexOutOfBoundsException ex){
-            int a = 5;
+            throw new CSVParseException(CSVParseErrors.mustHaveLessData);
         }
     }
 

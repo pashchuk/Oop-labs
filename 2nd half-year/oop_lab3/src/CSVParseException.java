@@ -7,8 +7,8 @@ public class CSVParseException extends IOException {
         private String message;
     public CSVParseException(CSVParseErrors error){
         switch (error){
-            case invalidData:
-                message = "CSV file have some incorrect data";
+            case mustHaveLessData:
+                message = "This file must have a less data";;
                 break;
             case isNotCSVFile:
                 message = "The current file is not a .csv file";
