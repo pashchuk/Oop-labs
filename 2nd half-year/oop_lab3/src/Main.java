@@ -15,13 +15,12 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         JFrame frame = new JFrame("MainFrame");
         CSVProcessor processor = new CSVProcessor("asd.csv");
-        processor.Parse();
         DiagramDrawer drawer = new DiagramDrawer(processor);
         frame.setBounds(100,100,600,600);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.getContentPane().add(drawer);
-        frame.getContentPane().add(drawer.getTable());
+        //frame.getContentPane().add(drawer.getTable());
         frame.setVisible(true);
 
     }
