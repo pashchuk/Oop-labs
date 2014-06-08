@@ -14,8 +14,14 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         JFrame frame = new JFrame("MainFrame");
-        frame.setBounds(100,100,300,300);
-        frame.getContentPane().add(new DiagramDrawer());
+        CSVProcessor processor = new CSVProcessor("asd.csv");
+        processor.Parse();
+        DiagramDrawer drawer = new DiagramDrawer(processor);
+        frame.setBounds(100,100,600,600);
+        frame.setResizable(false);
+        frame.setLayout(null);
+        frame.getContentPane().add(drawer);
+        frame.getContentPane().add(drawer.getTable());
         frame.setVisible(true);
 
     }
