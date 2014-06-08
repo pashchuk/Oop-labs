@@ -10,4 +10,10 @@ public class Sector {
         this.value = value;
         this.color = color;
     }
+    public Color getColor(){
+        return this.color;
+    }
+    public int getValue(){
+        return this.value;
+    }
 }
