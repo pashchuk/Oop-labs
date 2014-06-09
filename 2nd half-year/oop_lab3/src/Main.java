@@ -42,6 +42,13 @@ public class Main {
         frame.getContentPane().add(drawer.getTable());
         frame.validate();
         frame.setVisible(true);
+        frame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+
+            }
+        });
 
         saveDiagram.addMouseListener(new MouseAdapter() {
             @Override
