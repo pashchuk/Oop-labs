@@ -1,5 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -24,10 +29,22 @@ public class DiagramDrawer extends JComponent {
         table = new JTable(sectors.size(),sectors.get(0).length);
         int height = 20*sectors.size();
         table.setRowHeight(20);
-        table.setLocation(20,400);
-        table.setSize(560,height>160?160:height);
+        table.setLocation(20, 400);
+        table.setSize(560, height > 160 ? 160 : height);
+        table.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("tableCellEditor".equals(evt.getPropertyName()))
+                    if (!table.isEditing()){
+                        int row = table.convertRowIndexToModel( table.getEditingRow() );
+                        int column = table.convertColumnIndexToModel( table.getEditingColumn() );
+                        data[row][column] = Integer.parseInt((String)table.getModel().getValueAt(row,column));
+                    }
+            }
+        });
         updateTable();
     }
+
     public void updateTable(){
         for(int i = 0; i < data.length; i++)
             for(int j = 0; j < data[0].length; j++)
@@ -55,13 +72,12 @@ public class DiagramDrawer extends JComponent {
                 local[j] = new Sector(Integer.parseInt(csvTable[i][j]),getNewColor());
                 data[i][j] = local[j].getValue();
             }
-                //data[i][j] = Integer.parseInt(csvTable[i][j]);
             sectors.add(local);
         }
         b = true;
     }
 
-    private void draw(Graphics g){
+    public void draw(Graphics g){
         int x = 10, y = 10, width = 200, height = 200,
                 startAngle = 0, endAngle = 0, maxValue = 0;
         Sector currSector;
