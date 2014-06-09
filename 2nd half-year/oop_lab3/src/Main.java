@@ -46,7 +46,7 @@ public class Main {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-
+                drawer.changeDiagram(e.getPoint());
             }
         });
 
