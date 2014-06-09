@@ -8,8 +8,6 @@ public class CSVProcessor {
     private String[][] data;
     private ArrayList<String> buffer;
 
-    public CSVProcessor() {}
-
     /**
      * Create a object of csv data
      *
@@ -17,17 +15,25 @@ public class CSVProcessor {
      * @throws IOException
      */
     public CSVProcessor(String path)throws IOException{
-        if(!path.substring(path.length()-3,path.length()).equals("csv"))
-            throw new CSVParseException(CSVParseErrors.isNotCSVFile);
-        try(BufferedReader f = new BufferedReader(new FileReader(path))){
-            String line = f.readLine();
-           buffer = new ArrayList<String>();
-            while(line != null){
-                buffer.add(line);
-                line = f.readLine();
-            }
+        boolean read;
+        try{
+            read = Deserialise("serialised.dat");
+        }catch (IOException ex){
+            read = false;
         }
-        Parse();
+        if(!read){
+            if(!path.substring(path.length()-3,path.length()).equals("csv"))
+                throw new CSVParseException(CSVParseErrors.isNotCSVFile);
+            try(BufferedReader f = new BufferedReader(new FileReader(path))){
+                String line = f.readLine();
+                buffer = new ArrayList<String>();
+                while(line != null){
+                    buffer.add(line);
+                    line = f.readLine();
+                }
+            }
+            Parse();
+        }
     }
     //parse data from ArrayList<String> and split all lines to ',' delimiter
     //and fill a main field "data"
@@ -76,8 +82,8 @@ public class CSVProcessor {
      * @param path Path to directory whe file will be created.
      * @throws IOException
      */
-    public void Serialise(String path) throws IOException {
-        File file = new File(path);
+    public void Serialise() throws IOException {
+        File file = new File("serialised.dat");
         if (file.exists())
             if(file.isFile())
                 file.delete();
@@ -110,7 +116,6 @@ public class CSVProcessor {
             }
         return false;
     }
-
     /**
      * Print all data in current object to console
      */

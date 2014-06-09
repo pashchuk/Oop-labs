@@ -20,21 +20,10 @@ public class DiagramDrawer extends JComponent {
     private CSVProcessor processor;
     private JTable table;
     boolean b = false;
-//    @Override
-//    public void paint(Graphics g) {
-////        super.paint(g);
-//        g.setColor(Color.BLUE);
-//        g.fillArc(10,10,100,100,0,50);
-////        draw(g);
-//    }
-
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.BLUE);
-        //if (b) g.fillRect(10, 10, 100, 100);
-//        g.fillArc(10,10,100,100,0,50);
         draw(g);
     }
 
