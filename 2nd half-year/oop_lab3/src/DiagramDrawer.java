@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class DiagramDrawer extends JComponent {
     private ArrayList<Sector[]> sectors = null;
-    private int[][] data;
+    private String[][] data;
     private final Color[] colors = {
             Color.green,Color.blue,
             Color.cyan,Color.orange,
@@ -38,7 +38,7 @@ public class DiagramDrawer extends JComponent {
                     if (!table.isEditing()){
                         int row = table.convertRowIndexToModel( table.getEditingRow() );
                         int column = table.convertColumnIndexToModel( table.getEditingColumn() );
-                        data[row][column] = Integer.parseInt((String)table.getModel().getValueAt(row,column));
+                        data[row][column] = (String)table.getModel().getValueAt(row,column);
                     }
             }
         });
@@ -64,13 +64,11 @@ public class DiagramDrawer extends JComponent {
     private void initialise(){
         colorCount = 0;
         sectors = new ArrayList<>();
-        String[][] csvTable = processor.getData();
-        data = new int[csvTable.length][csvTable[0].length];
-        for(int i = 0; i < csvTable.length; i++){
-            Sector[] local = new Sector[csvTable[0].length];
-            for(int j = 0; j < csvTable[0].length; j++){
-                local[j] = new Sector(Integer.parseInt(csvTable[i][j]),getNewColor());
-                data[i][j] = local[j].getValue();
+        data = processor.getData();
+        for(int i = 0; i < data.length; i++){
+            Sector[] local = new Sector[data[0].length];
+            for(int j = 0; j < data[0].length; j++){
+                local[j] = new Sector(Integer.parseInt(data[i][j]),getNewColor());
             }
             sectors.add(local);
         }
