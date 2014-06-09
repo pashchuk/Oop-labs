@@ -37,7 +37,7 @@ public class CSVProcessor {
     }
     //parse data from ArrayList<String> and split all lines to ',' delimiter
     //and fill a main field "data"
-    public void Parse() throws CSVParseException{
+    public void Parse() throws IOException {
         int rowcount = buffer.get(0).split(",").length;
         data = new String[buffer.size()][rowcount];
         try{

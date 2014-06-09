@@ -1,8 +1,5 @@
-import com.sun.prism.*;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
@@ -21,22 +18,32 @@ public class DiagramDrawer extends JComponent {
     private JTable table;
     boolean b = false;
 
+    public DiagramDrawer(CSVProcessor proc){
+        this.processor = proc;
+        initialise();
+        table = new JTable(sectors.size(),sectors.get(0).length);
+        int height = 20*sectors.size();
+        table.setRowHeight(20);
+        table.setLocation(20,400);
+        table.setSize(560,height>160?160:height);
+        updateTable();
+    }
+    public void updateTable(){
+        for(int i = 0; i < data.length; i++)
+            for(int j = 0; j < data[0].length; j++)
+                table.setValueAt(data[i][j],i,j);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
     }
 
-    public DiagramDrawer(CSVProcessor proc){
-        this.processor = proc;
-        table = new JTable(3,3);
-        table.setRowHeight(30);
-        table.setBounds(10,120,200,100);
-        initialise();
-    }
     public JTable getTable(){
         return this.table;
     }
+
     private void initialise(){
         colorCount = 0;
         sectors = new ArrayList<>();
@@ -44,13 +51,16 @@ public class DiagramDrawer extends JComponent {
         data = new int[csvTable.length][csvTable[0].length];
         for(int i = 0; i < csvTable.length; i++){
             Sector[] local = new Sector[csvTable[0].length];
-            for(int j = 0; j < csvTable[0].length; j++)
+            for(int j = 0; j < csvTable[0].length; j++){
                 local[j] = new Sector(Integer.parseInt(csvTable[i][j]),getNewColor());
+                data[i][j] = local[j].getValue();
+            }
                 //data[i][j] = Integer.parseInt(csvTable[i][j]);
             sectors.add(local);
         }
         b = true;
     }
+
     private void draw(Graphics g){
         int x = 10, y = 10, width = 200, height = 200,
                 startAngle = 0, endAngle = 0, maxValue = 0;
@@ -65,6 +75,7 @@ public class DiagramDrawer extends JComponent {
             startAngle += endAngle;
         }
     }
+
     private Color getNewColor(){
         if (colorCount>4)
             colorCount = 0;
