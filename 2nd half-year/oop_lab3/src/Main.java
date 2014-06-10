@@ -9,10 +9,7 @@ import javafx.application.Application;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -27,9 +24,9 @@ public class Main {
         JButton saveTable = new JButton("Save table");
         JFileChooser choser = new JFileChooser();
         saveDiagram.setLocation(10,10);
-        saveDiagram.setSize(150,30);
-        saveTable.setLocation(180,10);
-        saveTable.setSize(150,30);
+        saveDiagram.setSize(150, 30);
+        saveTable.setLocation(180, 10);
+        saveTable.setSize(150, 30);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 600, 600);
         frame.setResizable(false);
@@ -43,6 +40,19 @@ public class Main {
         frame.validate();
         frame.setVisible(true);
         frame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                drawer.onChange = true;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                drawer.onChange=false;
+            }
+        });
+        frame.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
@@ -78,5 +88,7 @@ public class Main {
                 }
             }
         });
+
+
     }
 }
