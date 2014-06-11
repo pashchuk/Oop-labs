@@ -15,6 +15,7 @@ public class DiagramDrawer extends JComponent {
     private int selectedCol;
     public boolean onChange = false;
     private Point[] points;
+    private Point[] vectorPoints;
     private ArrayList<Sector[]> sectors = null;
     private String[][] data;
     private final Color[] colors = {
@@ -54,6 +55,7 @@ public class DiagramDrawer extends JComponent {
             }
         });
         points = new Point[data[0].length];
+        vectorPoints = new Point[data[0].length];
         updateTable();
     }
 
@@ -64,6 +66,7 @@ public class DiagramDrawer extends JComponent {
     }
 
     public void changeDiagram(Point newPoint){
+        Point newVectorPoint = new Point((int)newPoint.getX()-this.getX()-100,(int)newPoint.getY()-this.getY()-130);
         for(int i = 0; i < points.length; i++){
             if((newPoint.x>=points[i].x-4)&&(newPoint.x<=points[i].x+4)&&(newPoint.y>=points[i].y+30-4)&&(newPoint.y<=points[i].y+30+4)){
                 selectedCol = i;
@@ -77,36 +80,61 @@ public class DiagramDrawer extends JComponent {
                 if(selectedCol==0){
                     first = sectors.get(selectedRow)[sectors.get(0).length-1];
                     second = sectors.get(selectedRow)[0];
-                    prevpoint = points[sectors.get(0).length-1];
-                    point = points[0];
-                    nextpoint = points[1];
+                    prevpoint = vectorPoints[sectors.get(0).length-1];
+                    point = vectorPoints[0];
+                    nextpoint = vectorPoints[1];
                 }
                 else if (selectedCol == sectors.get(selectedRow).length-1){
                     first = sectors.get(selectedRow)[sectors.get(0).length-2];
                     second = sectors.get(selectedRow)[sectors.get(0).length-1];
-                    prevpoint = points[sectors.get(0).length-2];
-                    point = points[sectors.get(0).length-1];
-                    nextpoint = points[0];
+                    prevpoint = vectorPoints[sectors.get(0).length-2];
+                    point = vectorPoints[sectors.get(0).length-1];
+                    nextpoint = vectorPoints[0];
                 }
                 else{
                     first = sectors.get(selectedRow)[selectedCol];
                     second = sectors.get(selectedRow)[selectedCol+1];
-                    prevpoint = points[selectedCol-1];
-                    point = points[selectedCol];
-                    nextpoint = points[selectedCol+1];
+                    prevpoint = vectorPoints[selectedCol-1];
+                    point = vectorPoints[selectedCol];
+                    nextpoint = vectorPoints[selectedCol+1];
                 }
                 int maxValue = first.getValue() + second.getValue();
-                double startangle = calcVectorAngle(point,nextpoint);
-                double endangle = calcVectorAngle(point,newPoint);
-                double diff = endangle-startangle;
-                double diffvalue = Math.toDegrees(diff)*maxValue/calcVectorAngle(prevpoint,nextpoint);
-                double deggre = Math.toDegrees(diff);
-                double asd = calcVectorAngle(prevpoint,nextpoint);
-                data[selectedRow][selectedCol] +=(int)diffvalue;
+                double startangle = Math.toDegrees(calcVectorAngle(point,nextpoint));
+                double endangle = Math.toDegrees(calcVectorAngle(point,newVectorPoint));
+                double diffvalue = endangle*maxValue/360;//Math.toDegrees(calcVectorAngle(prevpoint,nextpoint));
+                if(getSign(point,newPoint))
+                    data[selectedRow][selectedCol] = String.valueOf (Integer.parseInt(data[selectedRow][selectedCol])
+                            - (int)diffvalue);
+                else
+                    data[selectedRow][selectedCol] = String.valueOf (Integer.parseInt(data[selectedRow][selectedCol])
+                            + (int)diffvalue);
                 initialiseSectors();
                 updateTable();
                 this.repaint();
             }
+    }
+    private boolean getSign(Point firstPoint, Point newPoint){
+        if(firstPoint.getY()<0&&newPoint.getY()<0){
+            if(firstPoint.getX()-newPoint.getX()>0)
+                return true;
+            else return false;
+        }
+        if(firstPoint.getY()>0&&newPoint.getY()>0){
+            if(newPoint.getX()-firstPoint.getX()>0)
+                return true;
+            else return false;
+        }
+        if(firstPoint.getX()>0&&newPoint.getX()>0){
+            if(firstPoint.getY()-newPoint.getY()>0)
+                return true;
+            else return false;
+        }
+        if(firstPoint.getX()<0&&newPoint.getX()<0){
+            if(newPoint.getY()-firstPoint.getY()>0)
+                return true;
+            else return false;
+        }
+        return false;
     }
     private double calcVectorAngle(Point point1, Point point2){
         double scalar = point1.getX()*point2.getX() + point1.getY()*point2.getY();
@@ -159,6 +187,7 @@ public class DiagramDrawer extends JComponent {
             gr.fillArc(x, y, width, height, (int) Math.round(startAngle), (int) Math.round(endAngle));
             int pointx = x + height/2 +(int)Math.round(Math.cos( Math.toRadians(startAngle))*100),
                     pointy = y +width/2+ (int)Math.round(Math.sin(-1 * Math.toRadians(startAngle))*100);
+            vectorPoints[i] = new Point(pointx-x-height/2,pointy-y-width/2);
             points[i] = new Point(pointx+this.getX(),pointy+this.getY());
             startAngle += endAngle;
             gr.setColor(Color.gray);
@@ -169,7 +198,7 @@ public class DiagramDrawer extends JComponent {
         gr.drawOval(x,y,width,height);
         gr.setColor(Color.red);
         for(int i = 0; i < points.length; i++)
-            gr.fillOval(points[i].x-3-this.getX(),points[i].y-3-this.getY(),6,6);
+            gr.fillOval(points[i].x-5-this.getX(),points[i].y-5-this.getY(),10,10);
     }
 
     private Color getNewColor(){
